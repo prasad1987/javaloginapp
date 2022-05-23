@@ -9,5 +9,9 @@ class MyWebAppApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	
+	@Test
+	void contextLoads2() {
+	}
 
 }
