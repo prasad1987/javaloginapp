@@ -33,6 +33,8 @@ jobs:
               -Dsonar.qualitygate.wait=true
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@master
+        with:
+           scanMetadataReportFile: target/sonar/report-task.txt
         timeout-minutes: 15
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
