@@ -27,7 +27,7 @@ jobs:
           mvn sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
               -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-           mvn verify sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
               -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
               -Dsonar.qualitygate.wait=true
