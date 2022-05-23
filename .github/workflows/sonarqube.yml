@@ -1,0 +1,32 @@
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request.
+  push:
+    branches:
+      - develop
+      - integration
+      - master
+      - release
+  pull_request:
+    types: [opened, synchronize, reopened]
+name: Sonarqube Main Workflow
+jobs:
+  sonar-scanner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 1.11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: SonarQube scan
+        run: |
+          mvn clean install -Djib.skip --file pom.xml
+          mvn sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
